@@ -8,21 +8,41 @@ export default {
         'serif': ['Playfair Display', 'serif'],
       },
       colors: {
+        // Brand primary color
+        brand: {
+          primary: '#CC0035',
+          secondary: '#FFF9F5',
+        },
+        // Keep rose colors for compatibility but update values
         rose: {
-          50: '#fff1f2',
-          100: '#ffe4e6',
-          200: '#fecdd3',
-          300: '#fda4af',
-          400: '#fb7185',
-          500: '#f43f5e',
-          600: '#e11d48',
-          700: '#be123c',
-          800: '#9f1239',
-          900: '#881337',
+          50: '#FFF9F5',
+          100: '#FFF9F5',
+          200: '#FFF9F5',
+          300: '#FFF9F5',
+          400: '#CC0035',
+          500: '#CC0035',
+          600: '#CC0035',
+          700: '#CC0035',
+          800: '#CC0035',
+          900: '#CC0035',
+        },
+        // Text colors
+        text: {
+          primary: '#000000',
+          secondary: '#4B4B4B',
+          light: '#FFFFFF',
         },
       },
       animation: {
-        'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+        'spin-slow': 'spin 15s linear infinite',
+        'spin-reverse': 'spin-reverse 15s linear infinite',
+      },
+      keyframes: {
+        'spin-reverse': {
+          from: { transform: 'rotate(360deg)' },
+          to: { transform: 'rotate(0deg)' },
+        },
       },
     },
   },

@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { Heart, Coffee, Award, ArrowLeft, Star, CheckCircle, Clock, Thermometer, Droplets, Wheat, Crown, MapPin, Filter, Sparkles, Leaf, Snowflake, IceCream, GlassWater } from 'lucide-react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import AnimatedSection from '../components/AnimatedSection';
+import StaggeredGrid from '../components/StaggeredGrid';
+import FloatingElements from '../components/FloatingElements';
+import PageTransition from '../components/PageTransition';
 
 import RoseMilkImage from '../assets/p1rosemilk.png';
 import AlmondRichMilkImage from '../assets/p2almondrichmilk.png';
@@ -35,7 +40,7 @@ const ProductsPage = () => {
         name: 'Rose Water',
         description: 'Extracted from the pure essence of rose. 100% edible, excellent for skin care.',
         badge: 'Limited Edition',
-        badgeColor: 'bg-purple-100 text-purple-800',
+        badgeColor: 'bg-brand-secondary text-brand-primary',
         image: RoseWaterImage,
         category: 'essentials'
       }
@@ -46,7 +51,7 @@ const ProductsPage = () => {
         name: 'Rose Milk Syrup',
         description: 'Our signature blend with 8 premium ingredients for health and taste.',
         badge: 'Bestseller',
-        badgeColor: 'bg-rose-100 text-rose-800',
+        badgeColor: 'bg-brand-primary text-white',
         image: RoseMilkSyrupImage,
         category: 'drinks',
         isSpecial: true,
@@ -66,7 +71,7 @@ const ProductsPage = () => {
         name: 'Rose Milk',
         description: 'The original recipe that started it all in 1949.',
         badge: 'Original',
-        badgeColor: 'bg-rose-100 text-rose-800',
+        badgeColor: 'bg-brand-primary text-white',
         image: RoseMilkImage,
         category: 'drinks',
         options: ['Chilled', 'Iced']
@@ -76,7 +81,7 @@ const ProductsPage = () => {
         name: 'Pistachio Rich Milk',
         description: 'Creamy milk infused with premium pistachios.',
         badge: 'Rich',
-        badgeColor: 'bg-green-100 text-green-800',
+        badgeColor: 'bg-brand-secondary text-brand-primary',
         image: PistachioRichMilkImage,
         category: 'drinks',
         options: ['Chilled', 'Iced']
@@ -86,7 +91,7 @@ const ProductsPage = () => {
         name: 'Almond Rich Milk',
         description: 'Smooth and nutritious almond-infused milk.',
         badge: 'Healthy',
-        badgeColor: 'bg-amber-100 text-amber-800',
+        badgeColor: 'bg-brand-secondary text-brand-primary',
         image: AlmondRichMilkImage,
         category: 'drinks',
         options: ['Chilled', 'Iced']
@@ -96,7 +101,7 @@ const ProductsPage = () => {
         name: 'Cocoa (Dark Chocolate Mix)',
         description: 'Rich dark chocolate blend for chocolate lovers.',
         badge: 'Premium',
-        badgeColor: 'bg-yellow-100 text-yellow-800',
+        badgeColor: 'bg-brand-secondary text-brand-primary',
         image: CocoaImage,
         category: 'drinks',
         options: ['Chilled', 'Iced']
@@ -108,7 +113,7 @@ const ProductsPage = () => {
         name: 'Rose Kova',
         description: 'Traditional kova meets rose milk in perfect harmony.',
         badge: 'Traditional',
-        badgeColor: 'bg-orange-100 text-orange-800',
+        badgeColor: 'bg-brand-secondary text-brand-primary',
         image: RosekovaImage,
         category: 'fusions'
       },
@@ -117,7 +122,7 @@ const ProductsPage = () => {
         name: 'Ancient Falooda (Semia)',
         description: 'Classic falooda with soft vermicelli and rose essence.',
         badge: 'Heritage',
-        badgeColor: 'bg-purple-100 text-purple-800',
+        badgeColor: 'bg-brand-secondary text-brand-primary',
         image: AncientFaloodaImage,
         category: 'fusions'
       }
@@ -128,7 +133,7 @@ const ProductsPage = () => {
         name: 'Saffron Pistachio',
         description: 'Luxurious saffron ice cream with pistachio chunks.',
         badge: 'Premium',
-        badgeColor: 'bg-yellow-100 text-yellow-800',
+        badgeColor: 'bg-brand-secondary text-brand-primary',
         image: SaffronPistachioImage,
         category: 'ice-creams'
       },
@@ -137,7 +142,7 @@ const ProductsPage = () => {
         name: 'White Rose',
         description: 'Delicate white rose flavored ice cream.',
         badge: 'Signature',
-        badgeColor: 'bg-rose-100 text-rose-800',
+        badgeColor: 'bg-brand-primary text-white',
         image: WhiteRoseImage,
         category: 'ice-creams'
       },
@@ -146,7 +151,7 @@ const ProductsPage = () => {
         name: 'Pink Rose',
         description: 'Classic pink rose ice cream with natural rose essence.',
         badge: 'Classic',
-        badgeColor: 'bg-pink-100 text-pink-800',
+        badgeColor: 'bg-brand-secondary text-brand-primary',
         image: PinkRoseImage,
         category: 'ice-creams'
       },
@@ -155,7 +160,7 @@ const ProductsPage = () => {
         name: 'Indian Chocolate',
         description: 'Rich chocolate ice cream with traditional Indian spices.',
         badge: 'Fusion',
-        badgeColor: 'bg-amber-100 text-amber-800',
+        badgeColor: 'bg-brand-secondary text-brand-primary',
         image: IndianChocolateImage,
         category: 'ice-creams'
       }
@@ -176,202 +181,280 @@ const ProductsPage = () => {
   const specialProduct = products.drinks.find(p => p.isSpecial);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-rose-50 to-white">
-      <Header />
+    <PageTransition>
+      <div className="min-h-screen bg-brand-secondary">
+        <Header />
 
-      {/* Breadcrumb */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-        <div className="flex items-center text-sm text-gray-600">
-          <Link to="/" className="hover:text-rose-600 transition-colors">Home</Link>
-          <span className="mx-2">/</span>
-          <span className="text-rose-600 font-medium">Products</span>
-        </div>
-      </div>
-
-      {/* Hero Section */}
-      <section className="py-8 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-5xl font-bold text-gray-900 mb-4 font-serif">
-              Our Products
-            </h1>
-            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              Discover our complete range of authentic products, crafted with 75 years of tradition.
-            </p>
+        {/* Breadcrumb */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+          <div className="flex items-center text-sm text-text-secondary">
+            <Link to="/" className="hover:text-brand-primary transition-colors">Home</Link>
+            <span className="mx-2">/</span>
+            <span className="text-brand-primary font-medium">Products</span>
           </div>
         </div>
-      </section>
 
-      {/* Filters */}
-      <section className="py-6 bg-white border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-wrap justify-center gap-3">
-            {filters.map((filter) => {
-              const FilterIcon = filter.icon;
-              return (
-                <button
-                  key={filter.id}
-                  onClick={() => setSelectedFilter(filter.id)}
-                  className={`flex items-center px-4 py-2 rounded-full font-medium transition-all duration-300 ${
-                    selectedFilter === filter.id
-                      ? 'bg-rose-600 text-white shadow-lg'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  <FilterIcon className="h-4 w-4 mr-2" />
-                  {filter.name}
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* Special Product - Rose Milk Syrup */}
-      {(selectedFilter === 'all' || selectedFilter === 'drinks') && specialProduct && (
-        <section className="py-12 bg-gradient-to-br from-rose-50 to-pink-50">
+        {/* Hero Section */}
+        <section className="py-8 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-rose-100">
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center bg-rose-100 rounded-full px-4 py-2 mb-4">
-                  <Sparkles className="h-4 w-4 text-rose-600 mr-2" />
-                  <span className="text-rose-800 font-medium">Featured Product</span>
-                </div>
-                
-                {/* Product Image Container - Portrait Optimized */}
-                <div className="w-48 h-64 mx-auto mb-6 bg-gradient-to-b from-rose-25 to-white rounded-2xl p-8 flex items-center justify-center">
-                  <img 
-                    src={specialProduct.image} 
-                    alt={specialProduct.name}
-                    className="max-w-full max-h-full object-contain drop-shadow-sm"
-                  />
-                </div>
-                
-                <h2 className="text-3xl font-bold text-gray-900 mb-4 font-serif">{specialProduct.name}</h2>
-                <p className="text-lg text-gray-600 mb-6">{specialProduct.description}</p>
-              </div>
-
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                {specialProduct.ingredients.map((ingredient, index) => (
-                  <div key={index} className="bg-rose-50 rounded-2xl p-4 text-center border border-rose-100">
-                    <div className="w-12 h-12 bg-rose-100 rounded-full flex items-center justify-center mx-auto mb-3">
-                      <Leaf className="h-6 w-6 text-rose-600" />
-                    </div>
-                    <h3 className="font-semibold text-gray-900 mb-2 text-sm">{ingredient.name}</h3>
-                    <p className="text-xs text-gray-600">{ingredient.benefit}</p>
-                  </div>
-                ))}
-              </div>
-
-              <div className="text-center">
-                <button className="bg-rose-600 text-white px-8 py-3 rounded-full font-semibold hover:bg-rose-700 transition-colors inline-flex items-center">
-                  <Heart className="h-4 w-4 mr-2" />
-                  Try Now
-                </button>
-              </div>
-            </div>
+            <AnimatedSection animation="fadeUp" className="text-center mb-8">
+              <h1 className="text-3xl md:text-5xl font-bold text-text-primary mb-4 font-serif">
+                Our Products
+              </h1>
+              <p className="text-lg text-text-secondary max-w-2xl mx-auto">
+                Discover our complete range of authentic products, crafted with 75 years of tradition.
+              </p>
+            </AnimatedSection>
           </div>
         </section>
-      )}
 
-      {/* Ice Creams Special Notice */}
-      {(selectedFilter === 'all' || selectedFilter === 'ice-creams') && (
-        <section className="py-8 bg-blue-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              <div className="inline-flex items-center bg-blue-100 rounded-full px-6 py-3">
-                <Snowflake className="h-5 w-5 text-blue-600 mr-2" />
-                <span className="text-blue-800 font-medium">No Palm Oil • No Chemical Preservatives</span>
-              </div>
+        {/* Featured Product - Rose Milk Syrup */}
+        {specialProduct && (
+          <section className="py-12 bg-brand-secondary">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <AnimatedSection animation="fadeUp">
+                <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 overflow-hidden">
+                  <div className="text-center mb-8">
+                    <div className="inline-flex items-center bg-brand-primary rounded-full px-4 py-2 mb-4">
+                      <Sparkles className="h-4 w-4 text-white mr-2" />
+                      <span className="text-white font-medium">Featured Product</span>
+                    </div>
+                    
+                    <h2 className="text-3xl font-bold text-text-primary mb-4 font-serif">{specialProduct.name}</h2>
+                    <p className="text-lg text-text-secondary mb-6">{specialProduct.description}</p>
+                  </div>
+
+                  {/* Radial Ingredient Layout */}
+                  <div className="relative w-full max-w-5xl mx-auto flex items-center justify-center mb-8 overflow-hidden animate-spin-slow" style={{ height: '80vmin' }}>
+                    {/* Central Rose Milk Syrup Bottle */}
+                    <div 
+                      className="absolute z-10 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 p-6 flex items-center justify-center" 
+                      style={{ width: '30vmin'}}
+                    >
+                      <img 
+                        src={specialProduct.image} 
+                        alt={specialProduct.name}
+                        className="max-w-full max-h-full object-contain drop-shadow-sm animate-spin-reverse"
+                      />
+                    </div>
+                    
+                    {/* Ingredient Icons in Circular Arrangement */}
+                    {specialProduct.ingredients.map((ingredient, index) => {
+                      const angle = (360 / specialProduct.ingredients.length) * index;
+                      const radius = '30vmin';
+                      
+                      return (
+                        <div
+                          key={index}
+                          className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center text-center cursor-pointer hover:scale-110 transition-transform duration-300 group"
+                          style={{
+                            transform: `rotate(${angle}deg) translate(${radius}) rotate(-${angle}deg)`,
+                            width: '18vmin',
+                            height: '16vmin'
+                          }}
+                        >
+                          <div className="absolute -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-between text-center cursor-pointer hover:scale-110 transition-transform duration-300 group animate-spin-reverse">
+                            {/* Circular Icon Background */}
+                            <div 
+                              className="bg-brand-secondary rounded-full flex items-center justify-center shadow-lg border-2 border-white group-hover:shadow-xl group-hover:bg-brand-primary transition-all duration-300" 
+                              style={{ width: '8vmin', height: '8vmin' }}
+                            >
+                              <Leaf style={{ width: '4vmin', height: '4vmin' }} className="text-brand-primary group-hover:text-white" />
+                            </div>
+                            
+                            {/* Ingredient Name */}
+                            <h3 className="font-semibold text-text-primary leading-tight mb-1 px-2" style={{ fontSize: '1.5vmin' }}>
+                              {ingredient.name}
+                            </h3>
+                            
+                            {/* Ingredient Benefit */}
+                            <p className="text-text-secondary leading-tight px-2 break-words" style={{ fontSize: '1.2vmin' }}>
+                              {ingredient.benefit}
+                            </p>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className="text-center">
+                    <div>
+                      <Link 
+                        to="/stores"
+                        className="bg-brand-primary text-white px-8 py-3 rounded-full font-semibold hover:bg-black transition-colors inline-flex items-center"
+                      >
+                        <Heart className="h-4 w-4 mr-2" />
+                        Try Now
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </AnimatedSection>
             </div>
+          </section>
+        )}
+
+        {/* Filters */}
+        <section className="py-6 bg-white border-b border-gray-100">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <AnimatedSection animation="fadeUp">
+              <div className="flex flex-wrap justify-center gap-3">
+                {filters.map((filter) => {
+                  const FilterIcon = filter.icon;
+                  return (
+                    <motion.button
+                      key={filter.id}
+                      onClick={() => setSelectedFilter(filter.id)}
+                      className={`flex items-center px-4 py-2 rounded-full font-medium transition-all duration-300 ${
+                        selectedFilter === filter.id
+                          ? 'bg-brand-primary text-white shadow-lg'
+                          : 'bg-gray-100 text-text-secondary hover:bg-gray-200'
+                      }`}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <FilterIcon className="h-4 w-4 mr-2" />
+                      {filter.name}
+                    </motion.button>
+                  );
+                })}
+              </div>
+            </AnimatedSection>
           </div>
         </section>
-      )}
 
-      {/* Products Grid */}
-      <section className="py-12">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {filteredProducts.filter(p => !p.isSpecial).map((product) => (
-              <div key={product.id} className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 group">
-                {/* Portrait Image Container */}
-                <div className="relative p-8 bg-gradient-to-b from-gray-25 to-white">
-                  <div className="aspect-[3/4] flex items-center justify-center">
-                    <img 
-                      src={product.image} 
-                      alt={product.name}
-                      className="max-w-full max-h-full object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="absolute top-4 left-4">
-                    <span className={`px-3 py-1 rounded-full text-xs font-medium ${product.badgeColor} shadow-sm`}>
-                      {product.badge}
-                    </span>
-                  </div>
+        {/* Ice Creams Special Notice */}
+        {selectedFilter === 'ice-creams' && (
+          <section className="py-8 bg-brand-secondary">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+              <AnimatedSection animation="fadeUp">
+                <div className="text-center">
+                  <motion.div 
+                    className="inline-flex items-center bg-brand-primary rounded-full px-6 py-3"
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <Snowflake className="h-5 w-5 text-white mr-2" />
+                    <span className="text-white font-medium">No Palm Oil • No Chemical Preservatives</span>
+                  </motion.div>
                 </div>
-                
-                {/* Product Info */}
-                <div className="p-6">
-                  <h3 className="text-lg font-bold text-gray-900 mb-3 font-serif text-center">{product.name}</h3>
-                  <p className="text-gray-600 text-sm mb-4 leading-relaxed text-center">{product.description}</p>
-                  
-                  {product.options && (
-                    <div className="flex gap-2 mb-4 justify-center">
-                      {product.options.map((option) => (
-                        <span key={option} className="inline-flex items-center px-3 py-1 bg-gray-50 rounded-full text-xs text-gray-700 border border-gray-200">
-                          {option === 'Chilled' ? <Thermometer className="h-3 w-3 mr-1" /> : <Snowflake className="h-3 w-3 mr-1" />}
-                          {option}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-                  
-                  <button className="w-full bg-rose-600 text-white py-3 rounded-full font-semibold hover:bg-rose-700 transition-colors shadow-sm hover:shadow-md">
-                    Order Now
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {filteredProducts.length === 0 && (
-            <div className="text-center py-12">
-              <div className="text-gray-400 mb-4">
-                <Filter className="h-16 w-16 mx-auto" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No products found</h3>
-              <p className="text-gray-600">Try selecting a different category.</p>
+              </AnimatedSection>
             </div>
-          )}
-        </div>
-      </section>
+          </section>
+        )}
 
-      {/* CTA Section */}
-      <section className="py-16 bg-gradient-to-br from-rose-600 to-rose-700 text-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif">
-            Ready to Experience Tradition?
-          </h2>
-          <p className="text-xl mb-8 text-rose-100">
-            Find our products at stores near you or order online for home delivery.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link 
-              to="/stores" 
-              className="bg-white text-rose-600 px-8 py-4 rounded-full font-semibold hover:bg-gray-50 transition-colors inline-flex items-center justify-center"
+        {/* Products Grid */}
+        <section className="py-12">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <StaggeredGrid
+              className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8"
+              staggerDelay={0.1}
             >
-              <MapPin className="h-5 w-5 mr-2" />
-              Find Stores
-            </Link>
-            <button className="border-2 border-white text-white px-8 py-4 rounded-full font-semibold hover:bg-white hover:text-rose-600 transition-colors">
-              Order Online
-            </button>
-          </div>
-        </div>
-      </section>
+              {filteredProducts.filter(p => !p.isSpecial).map((product) => (
+                <motion.div 
+                  key={product.id} 
+                  className="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 group"
+                  whileHover={{ 
+                    y: -5,
+                    transition: { type: "spring", stiffness: 300 }
+                  }}
+                >
+                  {/* Portrait Image Container */}
+                  <div className="relative p-8 bg-brand-secondary">
+                    <div className="aspect-[3/4] flex items-center justify-center">
+                      <motion.img 
+                        src={product.image} 
+                        alt={product.name}
+                        className="max-w-full max-h-full object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
+                        whileHover={{ 
+                          scale: 1.1,
+                          rotate: [0, -5, 5, 0],
+                          transition: { duration: 0.5 }
+                        }}
+                      />
+                    </div>
+                    <div className="absolute top-4 left-4">
+                      <span className={`px-3 py-1 rounded-full text-xs font-medium ${product.badgeColor} shadow-sm`}>
+                        {product.badge}
+                      </span>
+                    </div>
+                  </div>
+                  
+                  {/* Product Info */}
+                  <div className="p-6">
+                    <h3 className="text-lg font-bold text-text-primary mb-3 font-serif text-center">{product.name}</h3>
+                    <p className="text-text-secondary text-sm mb-4 leading-relaxed text-center">{product.description}</p>
+                    
+                    {product.options && (
+                      <div className="flex gap-2 mb-4 justify-center">
+                        {product.options.map((option) => (
+                          <span key={option} className="inline-flex items-center px-3 py-1 bg-brand-secondary rounded-full text-xs text-text-secondary border border-gray-200">
+                            {option === 'Chilled' ? <Thermometer className="h-3 w-3 mr-1" /> : <Snowflake className="h-3 w-3 mr-1" />}
+                            {option}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      whileTap={{ scale: 0.98 }}
+                    >
+                      <Link 
+                        to="/stores"
+                        className="w-full bg-brand-primary text-white py-3 rounded-full font-semibold hover:bg-black transition-colors shadow-sm hover:shadow-md block text-center"
+                      >
+                        Order Now
+                      </Link>
+                    </motion.div>
+                  </div>
+                </motion.div>
+              ))}
+            </StaggeredGrid>
 
-      <Footer />
-    </div>
+            {filteredProducts.length === 0 && (
+              <AnimatedSection animation="fadeUp" className="text-center py-12">
+                <div className="text-gray-400 mb-4">
+                  <Filter className="h-16 w-16 mx-auto" />
+                </div>
+                <h3 className="text-xl font-semibold text-text-primary mb-2">No products found</h3>
+                <p className="text-text-secondary">Try selecting a different category.</p>
+              </AnimatedSection>
+            )}
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-16 bg-brand-primary text-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <AnimatedSection animation="fadeUp">
+              <h2 className="text-3xl md:text-4xl font-bold mb-6 font-serif">
+                Ready to Experience Tradition?
+              </h2>
+              <p className="text-xl mb-8 text-white/90">
+                Find our products at stores near you or order online for home delivery.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <motion.div
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Link 
+                    to="/stores" 
+                    className="bg-white text-brand-primary px-8 py-4 rounded-full font-semibold hover:bg-gray-50 transition-colors inline-flex items-center justify-center"
+                  >
+                    <MapPin className="h-5 w-5 mr-2" />
+                    Find Stores
+                  </Link>
+                </motion.div>
+              </div>
+            </AnimatedSection>
+          </div>
+        </section>
+
+        <Footer />
+      </div>
+    </PageTransition>
   );
 };
 

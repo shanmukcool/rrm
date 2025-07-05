@@ -1,18 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Milk, Instagram, MapPin, Facebook, Phone } from 'lucide-react';
+import { Instagram, MapPin, Facebook, Phone } from 'lucide-react';
+import TrademarkImage from '../assets/trademark.png';
+import OldLogo from '../assets/oldlogo1.png';
 
 const Footer = () => {
   return (
-    <footer id="contact" className="bg-gray-900 text-white py-16">
+    <footer id="contact" className="bg-brand-primary text-white py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-8">
           <div>
             <Link to="/" className="flex items-center space-x-2 mb-6">
-              <Milk className="h-8 w-8 text-rose-400" />
-              <span className="text-2xl font-bold text-rose-400 font-serif">Rajahmundry Rose Milk</span>
+              <img 
+                src={OldLogo} 
+                alt="Rajahmundry Rose Milk" 
+                className="h-16 w-16 object-contain"
+              />
+              <span className="text-2xl font-bold text-white font-serif">Rajahmundry Rose Milk</span>
             </Link>
-            <p className="text-gray-400 mb-6">
+            <p className="text-white/80 mb-6">
               Preserving tradition, delivering joy since 1949.
             </p>
             <div className="flex space-x-4">
@@ -20,7 +26,7 @@ const Footer = () => {
                 href="https://www.instagram.com/rajahmundryrosemilkoffl/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-rose-400 cursor-pointer transition-colors"
+                className="text-white/80 hover:text-white cursor-pointer transition-colors"
               >
                 <Instagram className="h-6 w-6" />
               </a>
@@ -28,13 +34,13 @@ const Footer = () => {
                 href="https://www.facebook.com/rosemilk1950/" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="text-gray-400 hover:text-rose-400 cursor-pointer transition-colors"
+                className="text-white/80 hover:text-white cursor-pointer transition-colors"
               >
                 <Facebook className="h-6 w-6" />
               </a>
               <a 
                 href="tel:+919347149809" 
-                className="text-gray-400 hover:text-rose-400 cursor-pointer transition-colors"
+                className="text-white/80 hover:text-white cursor-pointer transition-colors"
               >
                 <Phone className="h-6 w-6" />
               </a>
@@ -43,20 +49,21 @@ const Footer = () => {
           
           <div>
             <h3 className="text-lg font-semibold mb-4">Products</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li><Link to="/products" className="hover:text-rose-400 transition-colors">Rose Milk</Link></li>
-              <li><Link to="/products" className="hover:text-rose-400 transition-colors">Semia</Link></li>
-              <li><Link to="/products" className="hover:text-rose-400 transition-colors">Rose Kova</Link></li>
+            <ul className="space-y-2 text-white/80">
+              <li><Link to="/products" className="hover:text-white transition-colors">Rose Milk</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Semia</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Rose Kova</Link></li>
             </ul>
           </div>
           
           <div>
             <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#story" className="hover:text-rose-400 transition-colors">About Us</a></li>
-              <li><a href="#" className="hover:text-rose-400 transition-colors">Gallery</a></li>
-              <li><Link to="/stores" className="hover:text-rose-400 transition-colors">Find Store</Link></li>
-              <li><a href="#" className="hover:text-rose-400 transition-colors">Franchise Opportunities</a></li>
+            <ul className="space-y-2 text-white/80">
+              <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
+              <li><Link to="/about" className="hover:text-white transition-colors">About Us</Link></li>
+              <li><Link to="/products" className="hover:text-white transition-colors">Products</Link></li>
+              <li><Link to="/franchise" className="hover:text-white transition-colors">Franchise Opportunities</Link></li>
+              <li><Link to="/stores" className="hover:text-white transition-colors">Find Store</Link></li>
             </ul>
           </div>
           
@@ -77,8 +84,12 @@ const Footer = () => {
           </div>
         </div>
         
-        <div className="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 Rajahmundry Rose Milk. All rights reserved. Made with ❤️ for tradition.</p>
+        <div className="text-center">
+          <img 
+            src={TrademarkImage} 
+            alt="Rajahmundry Rose Milk Trademark" 
+            className="w-full h-auto object-contain"
+          />
         </div>
       </div>
     </footer>
